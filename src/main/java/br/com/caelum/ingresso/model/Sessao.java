@@ -2,6 +2,8 @@ package br.com.caelum.ingresso.model;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,19 +18,22 @@ public class Sessao {
 	private LocalTime horario;
 	@ManyToOne
 	private Sala sala;
-	
-	private	BigDecimal	preco;
+
+	private BigDecimal preco;
+
 	/**
-	*	@deprecated	hibernate	only
-	*/
-	public	Sessao()	{
+	 * @deprecated hibernate only
+	 */
+	public Sessao() {
 	}
-	public	Sessao(LocalTime	horario,	Filme	filme,	Sala	sala)	{
-					this.horario	=	horario;
-					this.filme	=	filme;
-					this.sala	=	sala;
-					this.preco	=	sala.getPreco().add(filme.getPreco());
+
+	public Sessao(LocalTime horario, Filme filme, Sala sala) {
+		this.horario = horario;
+		this.filme = filme;
+		this.sala = sala;
+		this.preco = sala.getPreco().add(filme.getPreco());
 	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -63,24 +68,29 @@ public class Sessao {
 
 	@ManyToOne
 	private Filme filme;
+
 	public BigDecimal getPreco() {
 		return preco;
 	}
+
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
-	
+
+	public Map<String, List<Lugar>> getMapaDeLugares() {
+		return sala.getMapaDeLugares();
+	}
 
 	/**
 	 * @deprecated hibernate only
 	 */
-//	public Sessao() {
-//	}
-//
-//	public Sessao(LocalTime horario, Filme filme, Sala sala) {
-//		this.horario = horario;
-//		this.filme = filme;
-//		this.sala = sala;
-//	}
+	// public Sessao() {
+	// }
+	//
+	// public Sessao(LocalTime horario, Filme filme, Sala sala) {
+	// this.horario = horario;
+	// this.filme = filme;
+	// this.sala = sala;
+	// }
 
 }
